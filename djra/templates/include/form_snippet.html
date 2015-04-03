@@ -1,0 +1,28 @@
+{% if form.non_field_errors %}
+<div class="clearfix error non-field-error">
+{{ form.non_field_errors }}
+</div>
+{% endif %}
+
+{% for field in form.visible_fields %}
+    <div class="clearfix {% if field.errors %} error {% endif %}">
+
+        {# Include the hidden fields in the form #}
+        {% if forloop.first %}
+            {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+            {% endfor %}
+        {% endif %}
+
+        {{ field.label_tag }}
+        <div class="input">{{ field }}
+        {% if field.errors %}
+          {{ field.errors }}
+        {% else %}
+          {% if field.help_text %}
+          <span class="help-block">{{ field.help_text }}</span>
+          {% endif %}
+        {% endif %}
+        </div>
+    </div>
+{% endfor %}
